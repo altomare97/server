@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 10000;
 const axios = require('axios');
 
 // Middleware per gestire JSON
@@ -42,4 +42,28 @@ app.post('/api/config', (req, res) => {
       res.status(500).json({ error: 'Impossibile connettersi all’inverter' });
     }
   });
+
+  // Endpoint per il login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Logica di esempio per il login
+  if (username === 'admin' && password === 'password') {
+    res.json({ success: true, message: 'Login effettuato con successo' });
+  } else {
+    res.json({ success: false, message: 'Credenziali non valide' });
+  }
+});
+
+// Endpoint per i log
+app.get('/logs', (req, res) => {
+  const sampleLogs = [
+    'Log 1: Utente ha effettuato il login',
+    'Log 2: Dati richiesti al server',
+    'Log 3: Errore nella connessione al database',
+    'Log 4: Utente disconnesso',
+    'Log 5: Server avviato',
+  ];
+  res.json({ logs: sampleLogs });
+});
   
